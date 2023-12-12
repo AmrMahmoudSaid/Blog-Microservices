@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind : Deployment
+metadata:
+  name: clint-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clint
+  template:
+    metadata:
+      labels:
+        app: clint
+    spec:
+      containers:
+        - name: clint
+          image: amrmahmoud377/clint
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clint-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: clint
+  ports:
+    - name: clint
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+
